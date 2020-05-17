@@ -4,15 +4,15 @@
 
 export default function (props) {
     let content;
-    if (props.mode === 'hidden') {
+    if (props.block.mode === 'hidden') {
         content = '';
-    } else if (props.mode === 'flagged') {
+    } else if (props.block.mode === 'flagged') {
         content = 'F';
-    } else if (props.mode === 'visible') {
+    } else if (props.block.mode === 'visible') {
         content = props.value;
     }
 
     return (
-        <div className={"minesweeper-block"}>{content}</div>
+        <div className={"minesweeper-block"} onClick={props.blockClicked(props.block)}>{content}</div>
     )
 }

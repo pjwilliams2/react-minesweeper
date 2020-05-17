@@ -3,12 +3,13 @@ import React from "react";
 
 function renderContent(block) {
     let content;
+    const bombImg = <img className="bomb" alt="bomb" src="bomb.png" />;
     if (block.mode === 'flagged') {
-        content = <span>F</span>;
+        content = <div><img className="flag" src="flag.png" alt="flag"/></div>;
     } else if (block.mode === 'exploded') {
-        content = <div className={"exploded"}><img className={"bomb"} alt={"bomb"} src={"bomb.png"} /></div>;
+        content = <div className={"exploded"}>{bombImg}</div>;
     } else if (block.mode === 'visible' && block.value === 'bomb') {
-        content = <img className={"bomb"} alt={"bomb"} src={"bomb.png"} />
+        content = bombImg;
     } else if (block.mode === 'visible' && block.value !== 0) {
         content = <span>{block.value}</span>
     } else {

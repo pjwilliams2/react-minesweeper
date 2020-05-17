@@ -19,6 +19,7 @@
 }
 
 .minesweeper-grid {
+  border-left: 1px solid black;
   height: 320px;
 }
 
@@ -29,7 +30,10 @@
 .minesweeper-block {
   background-color: darkgray;
   box-sizing: border-box;
-  border: 1px solid black;
+  border-top: none;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: none;
   font-family: 'DM Mono', monospace;
   font-size: medium;
   font-weight: bold;
@@ -84,9 +88,9 @@ img.bomb, img.flag {
 .minesweeper-block.hidden {
   background-color: darkgrey;
   border-top: 2px solid white;
-  border-left: 2px solid white;
-  border-bottom: 2px solid dimgrey;
   border-right: 2px solid dimgrey;
+  border-bottom: 2px solid dimgrey;
+  border-left: 2px solid white;
 }
 
 .minesweeper-scores {

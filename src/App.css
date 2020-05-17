@@ -30,7 +30,7 @@
   background-color: darkgray;
   box-sizing: border-box;
   border: 1px solid black;
-  font-family: 'Squada One', cursive;
+  font-family: 'DM Mono', monospace;
   font-size: medium;
   font-weight: bold;
   height: 20px;
@@ -62,7 +62,7 @@ img.bomb, img.flag {
 }
 
 .minesweeper-block.value-4 {
-  color: #ec8200;
+  color: #ad5d00;
 }
 
 .minesweeper-block.value-5 {

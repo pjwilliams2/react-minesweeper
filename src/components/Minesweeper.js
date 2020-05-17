@@ -136,8 +136,7 @@ class Minesweeper extends React.Component
         }
 
         if (checkForWin) {
-            const didWin = this.didPlayerWin(changes.blocks);
-            if (didWin) {
+            if (this.didPlayerWin(changes.blocks)) {
                 changes.gameStatus = 'win';
                 stopTimer = true;
                 this.endTime = new Date();

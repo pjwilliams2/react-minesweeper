@@ -1,17 +1,32 @@
 import React from "react";
 
 
-export default function (props) {
+function renderContent(block) {
     let content;
-    if (props.block.mode === 'hidden') {
-        content = '';
-    } else if (props.block.mode === 'flagged') {
-        content = 'F';
-    } else if (props.block.mode === 'visible') {
-        content = props.value;
+    if (block.mode === 'flagged') {
+        content = <span>F</span>;
+    } else if (block.mode === 'exploded') {
+        content = <span>E</span>;
+    } else if (block.mode === 'visible' && block.value !== 0) {
+        content = <span>{block.value}</span>
+    } else {
+        content = <span>&nbsp;</span>;
+    }
+
+    return content;
+}
+
+export default function (props) {
+    let className = "minesweeper-block";
+    if (props.block.mode === 'exploded') {
+        className += ' exploded';
     }
 
     return (
-        <div className={"minesweeper-block"} onClick={props.onBlockClick(props.block)}>{content}</div>
-    )
+        <button className={className}
+                onClick={event => props.onBlockClick(props.rowIndex, props.colIndex, 'reveal', event)}
+                onContextMenu={event => props.onBlockClick(props.rowIndex, props.colIndex, 'flag', event)}>
+            {renderContent(props.block)}
+        </button>
+    );
 }

@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import Header from "./Header";
 import Grid from "./Grid";
-
-
+import Utilities from "./Utilities";
 
 class Minesweeper extends React.Component
 {
@@ -12,13 +11,16 @@ class Minesweeper extends React.Component
 
         this.state = {
             blocks: [],
-            bombCount: 99,
+            bombsRemaining: 99,
             gameStatus: null,
-            height: 16,
             timer: 0,
-            timerInterval: null,
-            width: 30,
         };
+
+        this.blockClickedHandler = this.blockClicked.bind(this);
+        this.timerInterval = null;
+        this.rows = 16;
+        this.columns = 30;
+        this.bombCapacity = 99;
     }
 
     componentDidMount() {
@@ -26,28 +28,21 @@ class Minesweeper extends React.Component
     }
 
     resetGame() {
-        if (this.state.timerInterval !== null) {
-            clearInterval(this.state.timerInterval);
-            this.setState({
-                timerInterval: null
-            });
-        }
+        this.stopTimer();
+        this.resetTimer();
 
         this.generateNewGame();
+
+        this.setState({
+            bombsRemaining: this.bombCapacity,
+            gameStatus: null
+        })
     }
 
     generateNewGame() {
         console.debug('Generating new game');
-        const blocks = [];
-        for (let i = 0; i < this.height; i++) {
-            blocks.push([]);
-            for(let j = 0; j < this.width; j++) {
-                blocks[i].push({
-                    mode: 'visible',
-                    value: j
-                });
-            }
-        }
+        const blocks = Utilities.newGameBoard(this.rows, this.columns, this.bombCapacity);
+
 
         this.setState({
             blocks
@@ -64,16 +59,91 @@ class Minesweeper extends React.Component
         }, 1000);
     }
 
-    blockClicked(block) {
-        if (this.state.timerInterval === null) {
+    stopTimer() {
+        if (this.timerInterval !== null) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+
+    resetTimer() {
+        this.setState({
+            timer: 0
+        });
+    }
+
+    blockClicked(rowIndex, colIndex, clickMode, event) {
+        event.preventDefault();
+
+        if (this.timerInterval === null) {
             this.startTimer();
         }
 
-        if (block.value === 'bomb') {
-            this.setState({
-                gameStatus: 'lose'
+        const blockMode = this.state.blocks[rowIndex][colIndex].mode;
+        if (blockMode === 'visible' || this.state.gameStatus === 'win' || this.state.gameStatus === 'lose') {
+            // return;
+        }
+
+        const isFlagging = clickMode === 'flag';
+        const blockValue = this.state.blocks[rowIndex][colIndex].value;
+        let stopTimer = false;
+
+        if (isFlagging && blockMode === 'flagged') {
+            this.setState(state => {
+                const copy = state.blocks.slice();
+                copy[rowIndex][colIndex].mode = 'hidden';
+
+                return {
+                    blocks: copy,
+                    bombsRemaining: state.bombsRemaining + 1
+                };
+            });
+        } else if (isFlagging && blockMode === 'hidden') {
+            this.setState(state => {
+                const copy = state.blocks.slice();
+                copy[rowIndex][colIndex].mode = 'flagged';
+
+                return {
+                    blocks: copy,
+                    bombsRemaining: state.bombsRemaining - 1
+                };
+            });
+        } else if (!isFlagging && blockValue === 'bomb') {
+            this.setState(state => {
+                const copy = state.blocks.slice();
+                copy[rowIndex][colIndex].mode = 'exploded';
+
+                return {
+                    blocks: copy,
+                    gameStatus: 'lose'
+                };
+            });
+            stopTimer = true;
+        } else if (!isFlagging && blockValue === 0) {
+            // reveal surrounding blocks
+
+        } else {
+            this.setState(state => {
+                const copy = state.blocks.slice();
+                copy[rowIndex][colIndex].mode = 'visible';
+
+                return {
+                    blocks: copy,
+                };
             });
         }
+
+
+        if (stopTimer) {
+            this.stopTimer();
+        }
+    }
+
+    checkForWinCondition(blockGrid) {
+        return blockGrid.flat().every(block => {
+            return (block.mode === 'flagged' && block.value === 'bomb')
+                || (block.mode === 'visible' && Number.isInteger(block.value));
+        });
     }
 
     render() {
@@ -81,12 +151,12 @@ class Minesweeper extends React.Component
             <div className={"minesweeper-game"}>
                 <Header onNewGameClick={()=> this.resetGame()}
                         timer={this.state.timer}
-                        bombCount={this.state.bombCount}
+                        bombCount={this.state.bombsRemaining}
                         gameStatus={this.state.gameStatus} />
-                <Grid height={this.state.height}
-                      width={this.state.width}
+                <Grid rows={this.rows}
+                      columns={this.columns}
                       blocks={this.state.blocks}
-                      onBlockClick={this.blockClicked}
+                      onBlockClick={this.blockClickedHandler}
                 />
             </div>
         )

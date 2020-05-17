@@ -1,11 +1,16 @@
-import * as React from "react";
+import React from "react";
+import Row from "./Row";
 
-function  renderRow(blocks) {
-
+function renderRows(blocks, blockClickedHandler) {
+    return blocks.map(rowBlocks => {
+        return <Row block={rowBlocks} onBlockClick={blockClickedHandler} />;
+    })
 }
 
 export default function (props) {
     return (
-        <div className={"minesweeper-grid"}>Grid</div>
+        <div className={"minesweeper-grid"}>
+            {renderRows(props.blocks, props.onBlockClick)}
+        </div>
     )
 }

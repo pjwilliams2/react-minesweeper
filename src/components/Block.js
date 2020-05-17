@@ -1,5 +1,4 @@
-
-
+import React from "react";
 
 
 export default function (props) {
@@ -13,6 +12,6 @@ export default function (props) {
     }
 
     return (
-        <div className={"minesweeper-block"} onClick={props.blockClicked(props.block)}>{content}</div>
+        <div className={"minesweeper-block"} onClick={props.onBlockClick(props.block)}>{content}</div>
     )
 }

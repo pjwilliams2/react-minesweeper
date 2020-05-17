@@ -26,6 +26,10 @@
   height: 320px;
 }
 
+.minesweeper-grid-row {
+  display: flex;
+}
+
 .minesweeper-block {
   box-sizing: border-box;
   border: 1px solid black;

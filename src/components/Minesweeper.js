@@ -13,6 +13,7 @@ class Minesweeper extends React.Component
         this.state = {
             blocks: [],
             bombCount: 99,
+            gameStatus: null,
             height: 16,
             timer: 0,
             timerInterval: null,
@@ -20,13 +21,28 @@ class Minesweeper extends React.Component
         };
     }
 
+    componentDidMount() {
+        this.resetGame();
+    }
+
+    resetGame() {
+        if (this.state.timerInterval !== null) {
+            clearInterval(this.state.timerInterval);
+            this.setState({
+                timerInterval: null
+            });
+        }
+
+        this.generateNewGame();
+    }
+
     generateNewGame() {
+        console.debug('Generating new game');
         const blocks = [];
         for (let i = 0; i < this.height; i++) {
+            blocks.push([]);
             for(let j = 0; j < this.width; j++) {
-                blocks.push({
-                    x: j,
-                    y: i,
+                blocks[i].push({
                     mode: 'visible',
                     value: j
                 });
@@ -48,15 +64,30 @@ class Minesweeper extends React.Component
         }, 1000);
     }
 
-    blockClicked() {
-        console.log('Block clicked');
+    blockClicked(block) {
+        if (this.state.timerInterval === null) {
+            this.startTimer();
+        }
+
+        if (block.value === 'bomb') {
+            this.setState({
+                gameStatus: 'lose'
+            });
+        }
     }
 
     render() {
         return (
             <div className={"minesweeper-game"}>
-                <Header onNewGameClick={()=> this.startTimer()} timer={this.state.timer} bombCount={this.state.bombCount}></Header>
-                <Grid blocks={this.state.blocks} onBlockClick={this.blockClicked}/>
+                <Header onNewGameClick={()=> this.resetGame()}
+                        timer={this.state.timer}
+                        bombCount={this.state.bombCount}
+                        gameStatus={this.state.gameStatus} />
+                <Grid height={this.state.height}
+                      width={this.state.width}
+                      blocks={this.state.blocks}
+                      onBlockClick={this.blockClicked}
+                />
             </div>
         )
     }

@@ -33,10 +33,47 @@
 .minesweeper-block {
   box-sizing: border-box;
   border: 1px solid black;
+  font-family: 'Squada One', cursive;
+  font-size: medium;
   height: 20px;
+  line-height: 0.8;
+  padding: 0;
+  text-align: center;
   width: 20px;
 }
 
-.minesweeper-block.exploded {
+.minesweeper-block.value-exploded {
   background-color: red;
+}
+
+.minesweeper-block.value-1 {
+  color: blue;
+}
+
+.minesweeper-block.value-2 {
+  color: black;
+}
+
+.minesweeper-block.value-3 {
+  color: red;
+}
+
+.minesweeper-block.value-4 {
+  color: black;
+}
+
+.minesweeper-block.value-5 {
+  color: black;
+}
+
+.minesweeper-block.value-6 {
+  color: black;
+}
+
+.minesweeper-block.value-7 {
+  color: black;
+}
+
+.minesweeper-block.value-8 {
+  color: black;
 }

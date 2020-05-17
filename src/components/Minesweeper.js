@@ -75,13 +75,13 @@ class Minesweeper extends React.Component
     blockClicked(rowIndex, colIndex, clickMode, event) {
         event.preventDefault();
 
-        if (this.timerInterval === null) {
-            this.startTimer();
-        }
-
         const blockMode = this.state.blocks[rowIndex][colIndex].mode;
         if (blockMode === 'visible' || this.state.gameStatus === 'win' || this.state.gameStatus === 'lose') {
             // return;
+        }
+
+        if (this.timerInterval === null) {
+            this.startTimer();
         }
 
         const isFlagging = clickMode === 'flag';

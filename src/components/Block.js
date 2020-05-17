@@ -19,7 +19,9 @@ function renderContent(block) {
 export default function (props) {
     let className = "minesweeper-block";
     if (props.block.mode === 'exploded') {
-        className += ' exploded';
+        className += ' value-exploded';
+    } else if (Number.isInteger(props.block.value)) {
+        className += ' value-' + props.block.value;
     }
 
     return (

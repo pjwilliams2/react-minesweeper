@@ -156,8 +156,8 @@ class Minesweeper extends React.Component
 
     didPlayerWin(blockGrid) {
         return blockGrid.flat().every(block => {
-            return (block.mode === 'flagged' && block.value === 'bomb')
-                || (block.mode === 'visible' && Number.isInteger(block.value));
+            return (block.mode === 'visible' && Number.isInteger(block.value))
+                || (block.value === 'bomb');
         });
     }
 

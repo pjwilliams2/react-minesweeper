@@ -4,7 +4,6 @@
 
 .minesweeper-game {
   width: 600px;
-
 }
 
 .minesweeper-header {
@@ -20,7 +19,6 @@
 }
 
 .minesweeper-grid {
-  /*border: 1px solid red;*/
   height: 320px;
 }
 
@@ -29,11 +27,12 @@
 }
 
 .minesweeper-block {
-  background-color: #eaeaea;
+  background-color: darkgray;
   box-sizing: border-box;
   border: 1px solid black;
   font-family: 'Squada One', cursive;
   font-size: medium;
+  font-weight: bold;
   height: 20px;
   line-height: 0.8;
   padding: 0;
@@ -41,7 +40,7 @@
   width: 20px;
 }
 
-img.bomb {
+img.bomb, img.flag {
   height: 18px;
   width: 18px;
 }
@@ -84,6 +83,10 @@ img.bomb {
 
 .minesweeper-block.hidden {
   background-color: darkgrey;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-bottom: 2px solid dimgrey;
+  border-right: 2px solid dimgrey;
 }
 
 .minesweeper-scores {

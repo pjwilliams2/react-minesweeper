@@ -24,6 +24,10 @@ export default function (props) {
         className += ' value-' + props.block.value;
     }
 
+    if (props.block.mode === 'hidden') {
+        className += ' hidden';
+    }
+
     return (
         <button className={className}
                 onClick={event => props.onBlockClick(props.rowIndex, props.colIndex, 'reveal', event)}

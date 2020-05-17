@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .minesweeper-game {
   width: 600px;
 
@@ -15,6 +11,8 @@
   display: flex;
   justify-content: space-between;
   border: 1px solid black;
+  font-size: 1.2em;
+  height: 1.25em;
 }
 
 .minesweeper-header-number {
@@ -82,4 +80,17 @@ img.bomb {
 
 .minesweeper-block.value-8 {
   color: #663399;
+}
+
+.minesweeper-block.hidden {
+  background-color: darkgrey;
+}
+
+.minesweeper-scores {
+  text-align: left;
+  padding: 0 0 0 20px;
+}
+
+.highlighted-score {
+  color: red;
 }

@@ -6,7 +6,9 @@ function renderContent(block) {
     if (block.mode === 'flagged') {
         content = <span>F</span>;
     } else if (block.mode === 'exploded') {
-        content = <span>E</span>;
+        content = <div className={"exploded"}><img className={"bomb"} alt={"bomb"} src={"bomb.png"} /></div>;
+    } else if (block.mode === 'visible' && block.value === 'bomb') {
+        content = <img className={"bomb"} alt={"bomb"} src={"bomb.png"} />
     } else if (block.mode === 'visible' && block.value !== 0) {
         content = <span>{block.value}</span>
     } else {
@@ -18,9 +20,7 @@ function renderContent(block) {
 
 export default function (props) {
     let className = "minesweeper-block";
-    if (props.block.mode === 'exploded') {
-        className += ' value-exploded';
-    } else if (Number.isInteger(props.block.value)) {
+    if (Number.isInteger(props.block.value)) {
         className += ' value-' + props.block.value;
     }
 

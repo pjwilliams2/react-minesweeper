@@ -139,6 +139,23 @@ class Minesweeper extends React.Component
         }
     }
 
+    revealNeighboringBlocks(rowIndex, colIndex, blockGrid) {
+        if (rowIndex < 0 || colIndex < 0 || rowIndex >= this.rows || colIndex >= this.columns) {
+            return blockGrid;
+        }
+
+        if (Number.isInteger(blockGrid[rowIndex][colIndex])) {
+            blockGrid[rowIndex][colIndex].mode = 'visible';
+        }
+
+        //go left
+        blockGrid = this.revealNeighboringBlocks(rowIndex, colIndex - 1, blockGrid);
+        //go right
+        blockGrid = this.revealNeighboringBlocks(rowIndex, )
+
+        return blockGrid;
+    }
+
     checkForWinCondition(blockGrid) {
         return blockGrid.flat().every(block => {
             return (block.mode === 'flagged' && block.value === 'bomb')

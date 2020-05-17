@@ -31,6 +31,7 @@
 }
 
 .minesweeper-block {
+  background-color: #eaeaea;
   box-sizing: border-box;
   border: 1px solid black;
   font-family: 'Squada One', cursive;
@@ -42,7 +43,12 @@
   width: 20px;
 }
 
-.minesweeper-block.value-exploded {
+img.bomb {
+  height: 18px;
+  width: 18px;
+}
+
+.minesweeper-block > .exploded {
   background-color: red;
 }
 
@@ -51,7 +57,7 @@
 }
 
 .minesweeper-block.value-2 {
-  color: black;
+  color: green;
 }
 
 .minesweeper-block.value-3 {
@@ -59,15 +65,15 @@
 }
 
 .minesweeper-block.value-4 {
-  color: black;
+  color: #ec8200;
 }
 
 .minesweeper-block.value-5 {
-  color: black;
+  color: #b105a0;
 }
 
 .minesweeper-block.value-6 {
-  color: black;
+  color: dodgerblue;
 }
 
 .minesweeper-block.value-7 {
@@ -75,5 +81,5 @@
 }
 
 .minesweeper-block.value-8 {
-  color: black;
+  color: #663399;
 }

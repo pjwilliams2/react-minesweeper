@@ -99,7 +99,7 @@ class Minesweeper extends React.Component
         const isFlagging = clickMode === 'flag';
         const blockValue = this.state.blocks[rowIndex][colIndex].value;
         let stopTimer = false;
-        let changes = {};
+        let changes;
         let checkForWin = false;
 
         if (isFlagging && blockMode === 'flagged') {
@@ -119,6 +119,9 @@ class Minesweeper extends React.Component
                 bombsRemaining: this.state.bombsRemaining - 1
             };
             checkForWin = true;
+        } else if (!isFlagging && blockMode === 'flagged') {
+            //prevent accidentally clicking on a flag
+            return;
         } else if (!isFlagging && blockValue === 'bomb') {
             const copy = this.state.blocks.slice();
             copy[rowIndex][colIndex].mode = 'exploded';

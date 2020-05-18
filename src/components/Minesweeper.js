@@ -123,6 +123,14 @@ class Minesweeper extends React.Component
             const copy = this.state.blocks.slice();
             copy[rowIndex][colIndex].mode = 'exploded';
 
+            copy.forEach((copyRows, rowIndex) => {
+                copyRows.forEach((copyBlock, colIndex) => {
+                    if (copyBlock.value === 'bomb' && copyBlock.mode === 'hidden') {
+                        copy[rowIndex][colIndex].mode = 'visible';
+                    }
+                });
+            });
+
             changes = {
                 blocks: copy,
                 gameStatus: 'lose'

@@ -88,7 +88,7 @@ img.bomb, img.flag {
   color: #663399;
 }
 
-.minesweeper-block.hidden {
+.minesweeper-block.hidden, .minesweeper-block.flagged {
   background-color: darkgrey;
   border-top: 2px solid white;
   border-right: 2px solid dimgrey;

@@ -25,9 +25,7 @@ export default function (props) {
         className += ' value-' + props.block.value;
     }
 
-    if (props.block.mode === 'hidden') {
-        className += ' hidden';
-    }
+    className += ` ${props.block.mode}`;
 
     return (
         <button className={className}

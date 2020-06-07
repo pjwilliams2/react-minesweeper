@@ -29,7 +29,7 @@ export default function (props) {
 
     return (
         <button className={className}
-                onClick={event => props.onBlockClick(props.rowIndex, props.colIndex, 'reveal', event)}
+                onClick={event => props.onBlockClick(props.rowIndex, props.colIndex, event.altKey ? 'flag' : 'reveal', event)}
                 onContextMenu={event => props.onBlockClick(props.rowIndex, props.colIndex, 'flag', event)}>
             {renderContent(props.block)}
         </button>
